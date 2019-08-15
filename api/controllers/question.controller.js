@@ -8,6 +8,7 @@ function getQestions(req, res, next) {
         .then(questions => {
             if (questions.length) {
                 res.status(200).json(questions);
+                return;
             }
             res.status(200).json({
                 message: 'there are no questions in database'
@@ -49,6 +50,7 @@ function getQuestionById(req, res, next) {
         .then(foundQuestion => {
             if (foundQuestion) {
                 res.status(200).json(foundQuestion);
+                return;
             }
             res.status(400).json({
                 message: 'there is no question with given ID'
@@ -81,6 +83,7 @@ function updateQuestion(req, res, next) {
                     message: 'question updated',
                     question: updatedQuestion
                 });
+                return;
             }
             res.status(400).json({
                message: 'there is no ques with with given ID'
@@ -99,6 +102,7 @@ function deleteQuestion(req, res,next) {
                     messaage: 'question deleted',
                     deletedQuestion: deletedQuestion
                 });
+                return;
             }
             res.status(400).json({
                 message: 'there is no ques with with given ID'
