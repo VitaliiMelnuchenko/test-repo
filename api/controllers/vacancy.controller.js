@@ -1,4 +1,4 @@
-const { Vacancy, Question } = require('../models/index');
+const { Vacancy } = require('../models/index');
 const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 

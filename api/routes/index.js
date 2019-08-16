@@ -4,10 +4,6 @@ const router = express.Router();
 const vacanciesRoutes = require('./vacancy.route');
 const questionsRoutes = require('./question.route');
 
-router.get('/', (req, res, next) => {
-    res.send('success');
-});
-
 router.use('/vacancies', vacanciesRoutes);
 router.use('/questions', questionsRoutes);
 
