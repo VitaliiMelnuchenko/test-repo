@@ -4,10 +4,12 @@ const router = express.Router();
 const questionsRoutes = require('./question.routes');
 const vacanciesRoutes = require('./vacancy.routes');
 const usersRoutes = require('./user.routes');
+const applicationRoutes = require('./application.routes');
 
 router.use('/users', usersRoutes);
 router.use('/questions', questionsRoutes);
 router.use('/vacancies', vacanciesRoutes);
+router.use('/applications', applicationRoutes);
 
 router.use((err, req, res, next) => {
     res.status(500).json(err.message);
