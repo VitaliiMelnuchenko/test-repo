@@ -3,8 +3,8 @@ const router = express.Router();
 const applicationController = require('../controllers/application.controller');
 
 router.route('')
-.get(applicationController.createApplications)
-.post(applicationController.getApplications);
+.get(applicationController.getApplications)
+.post(applicationController.createApplications);
 
 router.route('/:id')
 .get(applicationController.getApplicationsById)

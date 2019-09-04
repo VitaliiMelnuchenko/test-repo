@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Vacancy = require('../models/vacancy.model');
+const Question = require('../models/question.model');
 
 const applicationSchema = new Schema({
     candidate: {
@@ -23,11 +25,11 @@ const applicationSchema = new Schema({
             finishedAt: { type: Date }
         }
     ],
-    invitedAt: { type: Date },
+    invitedAt: { type: Date, default: Date.now },
     startedAt: { type: Date },
     completedAt: { type: Date },
     evaluetedAt: { type: Date },
-    status: { type: String },
+    status: { type: String, default: 'invited' },
     score: { type: Number },
     comments: [
         {
@@ -40,5 +42,26 @@ const applicationSchema = new Schema({
         }
     ]
 }, { versionKey: false });
+
+applicationSchema.post('save', async (doc, next) => {
+    try {
+        const populateVacancy = await Vacancy.populate(doc, { path: 'vacancy' });
+        const populateQuestions = await Question.populate(doc.vacancy, { path: 'questions' });
+        console.log(populateVacancy);
+        doc.questions = populateQuestions.questions.map(question => {
+            return {
+                mark: '',
+                answer: '',
+                videoKey: '',
+                type: '',
+                question: question._id,
+                finishedAt: ''
+            }
+        });
+        next();
+    } catch(err) {
+        next(err);
+    }
+});
 
 module.exports = mongoose.model('Application', applicationSchema);
