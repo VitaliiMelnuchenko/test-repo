@@ -6,6 +6,7 @@ const schema = {
     title: Joi.string().min(MIN_LENGTH).max(MAX_TITLE_LENGTH).required(),
     description: Joi.string().min(MIN_LENGTH).max(MAX_DESC_LENGTH).required(),
     type: Joi.string().valid('code', 'text', 'video').required(),
+    link: Joi.string(),
     // options:
     maxLength: Joi.number().greater(0).integer().required(),
     topics: Joi.array().items(Joi.string().min(MIN_LENGTH).max(MAX_TOPIC_LENGTH).required()).required(),

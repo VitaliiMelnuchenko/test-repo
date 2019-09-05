@@ -1,14 +1,21 @@
 const questionService = require('../services/question.service');
+const questionDT = require('../DTO/question.dto');
 
 const createQuestion = async (req, res, next) => {
-    const newQuestion = await questionService.createOne(req.body);
-    res.status(201).json(newQuestion);
+    const questionData = {
+        author: req.local.user._id,
+        ...req.body
+    }
+    const newQuestion = await questionService.createOne(questionData);
+    const result = questionDT(newQuestion);
+    res.status(201).json(result);
 }
 
 const getQuestions = async (req, res, next) => {
     try {
         const questions = await questionService.getMany();
-        res.status(200).json(questions);
+        const result = questions.map(question => questionDT(question))
+        res.status(200).json(result);
     } catch(err) {
         next(err);
     }
@@ -17,7 +24,8 @@ const getQuestions = async (req, res, next) => {
 const getQuestionById = async (req, res, next) => {
     try {
         const foundQuestion = await questionService.getOne(req.params.id);
-        res.status(200).json(foundQuestion);
+        const result = questionDT(foundQuestion);
+        res.status(200).json(result);
     } catch(err) {
         next(err);
     }
@@ -25,8 +33,13 @@ const getQuestionById = async (req, res, next) => {
 
 const updateQuestion = async (req, res, next) => {
     try {
-        const updatedQuestion = await questionService.updateOne(req.params.id, req.body);
-        res.status(200).json(updatedQuestion);
+        const questionData = {
+            author: req.local.user._id,
+            ...req.body
+        };
+        const updatedQuestion = await questionService.updateOne(req.params.id, questionData);
+        const result = questionDT(foundQuestion);
+        res.status(200).json(result);
     } catch(err) {
         next(err);
     }
