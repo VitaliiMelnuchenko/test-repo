@@ -2,13 +2,17 @@ const questionService = require('../services/question.service');
 const questionDT = require('../DTO/question.dto');
 
 const createQuestion = async (req, res, next) => {
-    const data = {
-        author: req.local.user._id,
-        ...req.body
+    try {
+        const data = {
+            author: req.local.user._id,
+            ...req.body
+        }
+        const newQuestion = await questionService.createOne(data);
+        const result = questionDT(newQuestion);
+        res.status(201).json(result);
+    } catch(err) {
+        next(err);
     }
-    const newQuestion = await questionService.createOne(data);
-    const result = questionDT(newQuestion);
-    res.status(201).json(result);
 }
 
 const getQuestions = async (req, res, next) => {
@@ -38,7 +42,7 @@ const updateQuestion = async (req, res, next) => {
             ...req.body
         };
         const updatedQuestion = await questionService.updateOne(req.params.id, data);
-        const result = questionDT(foundQuestion);
+        const result = questionDT(updatedQuestion);
         res.status(200).json(result);
     } catch(err) {
         next(err);

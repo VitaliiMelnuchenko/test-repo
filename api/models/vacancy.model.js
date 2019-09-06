@@ -11,7 +11,7 @@ const VacancySchema = new Schema({
         ref: 'User',
         required: true
     },
-    status: { type: String, enum: ['active', 'on hold', 'closed'], default: 'closed' },
+    status: { type: String, enum: ['active', 'on hold', 'closed'], default: 'on hold' },
     questions: [
         {
             type: Schema.Types.ObjectId,

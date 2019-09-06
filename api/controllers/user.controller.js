@@ -9,4 +9,13 @@ const signin = async (req, res, next) => {
     }
 }
 
-module.exports = { signin };
+const inviteCandidate = async (req, res, next) => {
+    try {
+        await userService.sendVerificationCode('alkasguaosjcvqwerg.aiosodfgaoADakADSfas23.kiasjhyduyewqbzx2');
+        res.status(200).send({success: true});
+    } catch(err) {
+        next(err);
+    }
+}
+
+module.exports = { signin, inviteCandidate };

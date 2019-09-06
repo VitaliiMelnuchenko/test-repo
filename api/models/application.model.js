@@ -7,7 +7,7 @@ const applicationSchema = new Schema({
     candidate: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        //required: true
     },
     vacancy: {
         type: Schema.Types.ObjectId,
@@ -21,14 +21,15 @@ const applicationSchema = new Schema({
     },
     questions: [
         {
-            mark: { type: Number },
-            answer: { type: String },
+            mark: { type: Number ,default: null },
+            answer: { type: String, default: null },
             videoKey: { type: String, default: null },
             type: { type: String, default: null },
             question: {
                 type: Schema.Types.ObjectId,
                 ref: 'Question',
             },
+            startedAt: { type: Date, default: null },
             finishedAt: { type: Date, default: null },
             status: { type: String, enum: ['not answered', 'ansvered', 'evaluated'], default: 'not answered' }
         }
@@ -37,7 +38,7 @@ const applicationSchema = new Schema({
     startedAt: { type: Date, default: null },
     completedAt: { type: Date, default: null },
     evaluetedAt: { type: Date, default: null },
-    status: { type: String, default: 'invited' },
+    status: { type: String, enum: ['invited', 'in progress', 'completed', 'evaluated'], default: 'invited' },
     score: { type: Number, default: null },
     comments: [
         {
@@ -55,15 +56,14 @@ applicationSchema.post('save', async (doc, next) => {
     try {
         const populateVacancy = await Vacancy.populate(doc, { path: 'vacancy' });
         const populateQuestions = await Question.populate(doc.vacancy, { path: 'questions' });
-        console.log(populateVacancy);
         doc.questions = populateQuestions.questions.map(question => {
             return {
-                mark: null,
-                answer: null,
-                videoKey: null,
-                type: question.type,
-                question: question._id,
-                finishedAt: null
+                mark: (question.mark) ? question.mark : null,
+                answer: (question.answer) ? question.answer : null,
+                videoKey: (question.videoKey) ? question.videoKey : null,
+                type: (question.type) ? question.type : null,
+                question: (question.question) ? question._id : null,
+                finishedAt: (question.finishedAt) ? question.finishedAt : null
             }
         });
         next();
