@@ -6,14 +6,14 @@ const createVacancy = async (req, res, next) => {
         const data = {
             author: req.local.user._id,
             ...req.body
-        }
+        };
         const newVacancy = await vacancyService.createOne(data);
         const result = vacancyDT(newVacancy);
         res.status(201).json(result);
     } catch(err) {
         next(err);
     }
-}
+};
 
 const getVacancy = async (req, res, next) => {
     try {
@@ -23,7 +23,7 @@ const getVacancy = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
 const getVacancyById = async (req, res, next) => {
     try {
@@ -33,21 +33,21 @@ const getVacancyById = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
 const updateVacancy = async (req, res, next) => {
     try {
         const data = {
             author: req.local.user._id,
             ...req.body
-        }
+        };
         const updatedVacancy = await vacancyService.updateOne(req.params.id, data);
         const result = vacancyDT(updatedVacancy);
         res.status(200).json(result);
     } catch(err) {
         next(err);
     }
-}
+};
 
 const deleteVacancy = async (req, res, next) => {
     try {
@@ -56,7 +56,7 @@ const deleteVacancy = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
 module.exports = { 
     createVacancy, 

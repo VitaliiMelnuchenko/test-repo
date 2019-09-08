@@ -12,6 +12,6 @@ const schema = {
     status: Joi.string().valid('invited', 'in progress', 'completed', 'evaluated'),
     score: joi.number(),
     comments: Joi.array()
-}
+};
 
 module.exports = validator(schema);

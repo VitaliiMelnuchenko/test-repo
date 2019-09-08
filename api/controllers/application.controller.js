@@ -7,7 +7,7 @@ const createApplications = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
 const getApplications = async (req, res, next) => {
     try {
@@ -16,7 +16,7 @@ const getApplications = async (req, res, next) => {
     } catch(err){
         next(err);
     }
-}
+};
 
 const getApplicationsById = async (req, res, next) => {
     try {
@@ -25,7 +25,7 @@ const getApplicationsById = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
 const updateApplication = async (req, res, next) => {
     try {
@@ -34,7 +34,7 @@ const updateApplication = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
 const deleteApplication = async (req, res, newt) => {
     try {
@@ -43,6 +43,6 @@ const deleteApplication = async (req, res, newt) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
-module.exports = { createApplications, getApplications, getApplicationsById, updateApplication, deleteApplication }
+module.exports = { createApplications, getApplications, getApplicationsById, updateApplication, deleteApplication };

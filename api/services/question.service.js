@@ -7,7 +7,7 @@ const createOne = async newQuestion => {
     } catch(err) {
         return err;
     }
-}
+};
 
 const getMany = async () => {
     try {        
@@ -16,7 +16,7 @@ const getMany = async () => {
     } catch(err) {
         throw new Error(err);
     }
-}
+};
 
 const getOne = async (id) => {
     try {
@@ -29,7 +29,7 @@ const getOne = async (id) => {
     } catch(err) {
         throw new Error(err);
     }
-}
+};
 
 const updateOne = async (id, doc) => {
     try {
@@ -42,7 +42,7 @@ const updateOne = async (id, doc) => {
     } catch(err) {
         throw new Error(err);
     }
-}
+};
 
 const removeOne = async (id) => {
     try {
@@ -56,6 +56,6 @@ const removeOne = async (id) => {
     } catch(err) {
         throw new Error(err);
     }
-}
+};
 
-module.exports = { createOne, getMany, getOne, updateOne, removeOne }
+module.exports = { createOne, getMany, getOne, updateOne, removeOne };

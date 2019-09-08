@@ -9,4 +9,4 @@ module.exports = (doc) => {
 	vacancy.questions = (doc.questions) ? doc.questions.map(question => questionDT(question)) : null;
 	vacancy.type = (doc.type) ? doc.type : null;
 	return vacancy;
-}
+};
