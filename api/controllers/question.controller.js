@@ -1,4 +1,5 @@
 const questionService = require('../services/question.service');
+const validateQuestion = require('../validators/question.validator');
 const questionDT = require('../DTO/question.dto');
 
 const createQuestion = async (req, res, next) => {
@@ -7,6 +8,7 @@ const createQuestion = async (req, res, next) => {
             author: req.local.user._id,
             ...req.body
         };
+        validateQuestion(data);
         const newQuestion = await questionService.createOne(data);
         const result = questionDT(newQuestion);
         res.status(201).json(result);
@@ -41,6 +43,7 @@ const updateQuestion = async (req, res, next) => {
             author: req.local.user._id,
             ...req.body
         };
+        validateQuestion(data);
         const updatedQuestion = await questionService.updateOne(req.params.id, data);
         const result = questionDT(updatedQuestion);
         res.status(200).json(result);

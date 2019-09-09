@@ -1,12 +1,13 @@
 const { Question } = require('../models');
 const errorHandler = require('../../utils/errorHandler');
+const badRequestErr = errorHandler.badRequest('There is no document with given ID');
 
 const createOne = async newQuestion => {
     try {
         const newDoc = await Question.create(newQuestion);
         return newDoc;
     } catch(err) {
-        return err;
+        throw err;
     }
 };
 
@@ -15,7 +16,7 @@ const getMany = async () => {
         const documents = await Question.find({});
         return documents;
     } catch(err) {
-        throw new Error(err);
+        throw err;
     }
 };
 
@@ -25,10 +26,10 @@ const getOne = async (id) => {
         if (document) {
             return document;
         } else {
-            throw new Error('There is no document with given ID');
+            throw badRequestErr;
         }
     } catch(err) {
-        throw new Error(err);
+        throw err;
     }
 };
 
@@ -38,24 +39,24 @@ const updateOne = async (id, doc) => {
         if (updatedDoc) {
             return updatedDoc;
         } else {
-            throw new Error('There is no document with given ID');
+            throw badRequestErr;
         }
     } catch(err) {
-        throw new Error(err);
+        throw err;
     }
 };
 
 const removeOne = async (id) => {
     try {
         const foundDoc = await Question.findById(id);
-        const deletedDoc = await foundDoc.remove();
-        if (deletedDoc) {
+        if (foundDoc) {
+            const deletedDoc = await foundDoc.remove();
             return deletedDoc;
         } else {
-            throw new Error('There is no document with given ID');
+            throw badRequestErr;
         }
     } catch(err) {
-        throw new Error(err);
+        throw err;
     }
 };
 

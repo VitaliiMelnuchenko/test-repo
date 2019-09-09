@@ -32,6 +32,7 @@ const google_auth = async (google_token) => {
                 accessToken: token
             };
         } else {
+            console.log(foundUser);
             throw new Error('Auth failed');
         }
     } catch(err) {

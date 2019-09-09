@@ -13,7 +13,7 @@ router.use('/vacancies', checkAuth, vacanciesRoutes);
 router.use('/applications', checkAuth, applicationRoutes);
 
 router.use((err, req, res, next) => {
-    res.status(err.status).json(err.message);
+    res.status(err.status || 500).json(err.message);
 });
 
 router.use('*', (req, res) => {
