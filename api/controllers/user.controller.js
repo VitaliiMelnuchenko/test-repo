@@ -7,15 +7,26 @@ const signin = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
 const inviteCandidate = async (req, res, next) => {
     try {
-        await userService.sendVerificationCode('alkasguaosjcvqwerg.aiosodfgaoADakADSfas23.kiasjhyduyewqbzx2');
-        res.status(200).send({success: true});
+        const candidate = req.body.candidate;
+        const vacancyId = req.body.vacancy;
+        await userService.inviteCandidate(candidate, vacancyId);
+        res.status(200).json({message: 'candidate has been invited'});
     } catch(err) {
         next(err);
     }
-}
+};
 
-module.exports = { signin, inviteCandidate };
+const activateUser = async (req, res, next) => {
+    try {
+        await userService.activateUser(req.body);
+        res.status(200).json({message: 'user has been activated'});
+    } catch(err) {
+        next(err);
+    }
+};
+
+module.exports = { signin, inviteCandidate, activateUser };

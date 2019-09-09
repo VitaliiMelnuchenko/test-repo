@@ -9,4 +9,4 @@ module.exports = (doc) => {
 	question.topics = (doc.topics) ? doc.topics : null;
 	question.level = (doc.level) ? doc.level : null;
 	return question;
-}
+};

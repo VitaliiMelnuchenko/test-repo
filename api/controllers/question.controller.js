@@ -6,24 +6,24 @@ const createQuestion = async (req, res, next) => {
         const data = {
             author: req.local.user._id,
             ...req.body
-        }
+        };
         const newQuestion = await questionService.createOne(data);
         const result = questionDT(newQuestion);
         res.status(201).json(result);
     } catch(err) {
         next(err);
     }
-}
+};
 
 const getQuestions = async (req, res, next) => {
     try {
         const questions = await questionService.getMany();
-        const result = questions.map(question => questionDT(question))
+        const result = questions.map(question => questionDT(question));
         res.status(200).json(result);
     } catch(err) {
         next(err);
     }
-}
+};
 
 const getQuestionById = async (req, res, next) => {
     try {
@@ -33,7 +33,7 @@ const getQuestionById = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
 const updateQuestion = async (req, res, next) => {
     try {
@@ -47,7 +47,7 @@ const updateQuestion = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
 const deleteQuestion = async (req, res, next) => {
     try {
@@ -56,7 +56,7 @@ const deleteQuestion = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
-}
+};
 
 module.exports = { 
     createQuestion, 

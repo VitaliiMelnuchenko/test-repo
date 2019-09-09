@@ -15,18 +15,37 @@ const UserSchema = new Schema({
     isActive: { type: Boolean, default: false }
 }, { versionKey: false });
 
-UserSchema.methods.generateAuthToken = function() {
-    const token = jwt.sign(
-        {
-            _id: this._id,
-            role: this.role
-        },
-        process.env.JWT_SECRET_KEY,
-        {
-            expiresIn: '10h'
-        }
-    );
-    return token;
+UserSchema.methods.generateAuthToken = function(photo) {
+    try {
+        const token = jwt.sign(
+            {
+                _id: this._id,
+                role: this.role,
+                isActive: this.isActive,
+                photoUrl: photo
+            },
+            process.env.JWT_SECRET_KEY,
+            {
+                expiresIn: '10h'
+            }
+        );
+        return token;
+    } catch(err) {
+        throw new Error(err);
+    }
+};
+
+UserSchema.methods.generateVerificationCode = function() {
+    try {
+        const token = jwt.sign(
+            { _id: this._id },
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: '7d' }
+        );
+        return token;
+    } catch(err) {
+        throw new Error(err);
+    }
 };
 
 module.exports = mongoose.model('User', UserSchema);

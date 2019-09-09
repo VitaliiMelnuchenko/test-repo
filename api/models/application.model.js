@@ -62,10 +62,11 @@ applicationSchema.post('save', async (doc, next) => {
                 answer: (question.answer) ? question.answer : null,
                 videoKey: (question.videoKey) ? question.videoKey : null,
                 type: (question.type) ? question.type : null,
-                question: (question.question) ? question._id : null,
+                question: (question) ? question : null,
                 finishedAt: (question.finishedAt) ? question.finishedAt : null
             }
         });
+        //const result = await doc.save();
         next();
     } catch(err) {
         next(err);
