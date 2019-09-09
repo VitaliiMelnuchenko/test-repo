@@ -1,7 +1,12 @@
 const { Application } = require('../models');
+const vacancyService = require('./vacancy.service');
 
 const createOne = async (data) => {
     try {
+        const vacancy = await vacancyService.getOne(data.vacancy);
+        if (vacancy.status !== 'active') {
+            throw new Error('Vacancy is not active');
+        }
         const newDoc = await Application.create(data);
         return newDoc;
     } catch(err) {

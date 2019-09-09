@@ -1,10 +1,10 @@
-const MIN_LENGTH = 3, MAX_TITLE_LENGTH = 150, MAX_DESC_LENGTH = 1000;
+const [MIN_LENGTH, MAX_TITLE_LENGTH, MAX_DESC_LENGTH] = require('../CONSTANTS');
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const VacancySchema = new Schema({
-    title: { type: String, min: MIN_LENGTH, MAX_TITLE_LENGTH, required: true },
+    title: { type: String, min: MIN_LENGTH, max: MAX_TITLE_LENGTH, required: true },
     description: { type: String, min: MIN_LENGTH, max: MAX_DESC_LENGTH, required: true },
     author: {
         type: Schema.Types.ObjectId,
