@@ -1,4 +1,4 @@
-const [MIN_LENGTH, MAX_TITLE_LENGTH, MAX_DESC_LENGTH] = require('../CONSTANTS');
+const { MIN_LENGTH, MAX_TITLE_LENGTH, MAX_DESC_LENGTH } = require('../CONSTANTS');
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;

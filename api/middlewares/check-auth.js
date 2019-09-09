@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const errorHandler = require('../../utils/errorHandler');
 
 module.exports = (req, res, next) => {
     try {
@@ -9,8 +10,7 @@ module.exports = (req, res, next) => {
         };
         next();
     } catch(err) {
-        const error = new Error('Auth Failed');
-        error.status = 401;
-        next(error)
+        const error = errorHandler.unauthorized(err);
+        next(error);
     }
 };

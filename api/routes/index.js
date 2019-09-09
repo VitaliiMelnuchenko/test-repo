@@ -13,7 +13,11 @@ router.use('/vacancies', checkAuth, vacanciesRoutes);
 router.use('/applications', checkAuth, applicationRoutes);
 
 router.use((err, req, res, next) => {
-    res.status(500).json(err.message);
+    res.status(err.status).json(err.message);
+});
+
+router.use('*', (req, res) => {
+    res.status(404).json({ message: 'Error 404: Not found' });
 });
 
 module.exports = router;

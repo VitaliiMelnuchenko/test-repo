@@ -1,4 +1,4 @@
-const [MIN_LENGTH, MAX_TITLE_LENGTH, MAX_DESC_LENGTH] = require('../../CONSTANTS');
+const { MIN_LENGTH, MAX_TITLE_LENGTH, MAX_DESC_LENGTH } = require('../../CONSTANTS');
 const Joi = require('@hapi/joi');
 const validator = require('../../services/validators.service');
 
