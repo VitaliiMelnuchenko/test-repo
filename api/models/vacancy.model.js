@@ -18,7 +18,8 @@ const VacancySchema = new Schema({
             ref: 'Question'
         }
     ],
-    type: { type: String, enum: ['android', 'web', 'ios', 'managment'], required: true }
+    type: { type: String, enum: ['android', 'web', 'ios', 'managment'], required: true },
+    link: { type: String, default: '' }
 }, { versionKey: false });
 
 module.exports = mongoose.model('Vacancy', VacancySchema);

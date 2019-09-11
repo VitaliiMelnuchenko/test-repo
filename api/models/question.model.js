@@ -15,7 +15,7 @@ const QuestionSchema = new Schema({
     type: { type: String, enum: ['code', 'text', 'video'], required: true },
     link: { type: String, default: '' },
     maxLength: { type: Number, required: true },
-    topics: { type:[String], required: true },
+    topics: { type: [String], required: true },
     level: { type: String, enum: ['junior', 'middle', 'senior'], required: true }
 }, { versionKey: false });
 

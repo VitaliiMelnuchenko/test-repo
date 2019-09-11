@@ -2,7 +2,7 @@ const Joi = require('@hapi/joi');
 const validator = require('../services/validators.service');
 
 const schema = {
-    candidate: Joi.object(),
+    candidate: Joi.object().required(),
     vacancy: Joi.object().required(),
     reviewer: Joi.object(),
     questions: Joi.array().required(),
@@ -14,4 +14,4 @@ const schema = {
     comments: Joi.array()
 };
 
-module.exports = Joi.validate(data, schema);
+module.exports = validator(schema);

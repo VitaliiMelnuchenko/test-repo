@@ -5,12 +5,10 @@ module.exports = schema => (data) => {
     try {
         const result = Joi.validate(data, schema);
         if (result.error) {
-            console.log('test');
             const error = errorHandler.invalidJoi(result.error);
             throw error
         }
     } catch(err) {
         throw err;
-        // throw new Error('err');
     }
 };

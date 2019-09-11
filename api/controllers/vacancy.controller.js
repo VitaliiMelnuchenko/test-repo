@@ -1,5 +1,6 @@
 const vacancyService = require('../services/vacancy.service');
 const vacancyDT = require('../DTO/vacancy.dto');
+const validateVacancy = require('../validators/vacancy.validator');
 
 const createVacancy = async (req, res, next) => {
     try {
@@ -7,6 +8,7 @@ const createVacancy = async (req, res, next) => {
             author: req.local.user._id,
             ...req.body
         };
+        validateVacancy(data);
         const newVacancy = await vacancyService.createOne(data);
         const result = vacancyDT(newVacancy);
         res.status(201).json(result);
@@ -41,6 +43,7 @@ const updateVacancy = async (req, res, next) => {
             author: req.local.user._id,
             ...req.body
         };
+        validateVacancy(data);
         const updatedVacancy = await vacancyService.updateOne(req.params.id, data);
         const result = vacancyDT(updatedVacancy);
         res.status(200).json(result);
@@ -52,7 +55,7 @@ const updateVacancy = async (req, res, next) => {
 const deleteVacancy = async (req, res, next) => {
     try {
         const deletedVacancy = await vacancyService.removeOne(req.params.id);
-        res.status(204).json(deletedQuestion);
+        res.status(204).json(deletedVacancy);
     } catch(err) {
         next(err);
     }

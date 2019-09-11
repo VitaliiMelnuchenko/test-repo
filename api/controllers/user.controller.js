@@ -22,7 +22,7 @@ const inviteCandidate = async (req, res, next) => {
 
 const activateUser = async (req, res, next) => {
     try {
-        await userService.activateUser(req.body);
+        await userService.activateUser(req.body.code);
         res.status(200).json({message: 'user has been activated'});
     } catch(err) {
         next(err);
