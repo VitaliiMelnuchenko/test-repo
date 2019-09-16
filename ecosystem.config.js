@@ -12,8 +12,7 @@ module.exports = {
     env_production: {
       PORT: 80,
       NODE_ENV: 'production',
-      //remove this after getting normal url, please notify Volodymyr Danyliv about that
-      MONGODB_URL: 'mongodb://udjs74qdb7tza7yhelgs:eUwNrXDuljcW77BgJtjD@bnedvqzc4ukgvvl-mongodb.services.clever-cloud.com:27017/bnedvqzc4ukgvvl'
+      MONGODB_URL: '' // replace with correct mongo url
     }
   }],
 
