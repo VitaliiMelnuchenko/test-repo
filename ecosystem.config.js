@@ -1,5 +1,6 @@
 module.exports = {
   // to call health check run http://18.189.29.136/hc
+  // to deploy run: pm2 deploy ecosystem.config.js production
 
   apps : [{
     name: 'Back-end api',
