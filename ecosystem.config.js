@@ -7,6 +7,7 @@ module.exports = {
     watch: false,
     max_memory_restart: '1G',
     env_production: {
+      PORT: 80,
       NODE_ENV: 'production',
       //remove this after getting normal url, please notify Volodymyr Danyliv about that
       MONGODB_URL: 'mongodb://udjs74qdb7tza7yhelgs:eUwNrXDuljcW77BgJtjD@bnedvqzc4ukgvvl-mongodb.services.clever-cloud.com:27017/bnedvqzc4ukgvvl'
