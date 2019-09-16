@@ -23,7 +23,7 @@ module.exports = {
       repo : 'http://gitlab+deploy-token-97628:FKmf-4mtVfhf4JW5Y93n@gitlab.com/techmagic/RecruterApp-Backend.git',
       path : '/home/ubuntu/recruitment-back-end',
       ssh_options: "StrictHostKeyChecking=no",
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production --force'
+      'post-deploy' : 'npm install && sudo pm2 reload ecosystem.config.js --env production --force'
     }
   }
 };
