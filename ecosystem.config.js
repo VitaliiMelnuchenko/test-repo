@@ -1,4 +1,6 @@
 module.exports = {
+  // to call health check run http://18.189.29.136/hc
+
   apps : [{
     name: 'Back-end api',
     script: 'index.js',
