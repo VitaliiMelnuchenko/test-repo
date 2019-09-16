@@ -27,22 +27,13 @@ const getApplicationsById = async (req, res, next) => {
     }
 };
 
-const updateApplication = async (req, res, next) => {
+const deleteApplication = async (req, res, next) => {
     try {
-        const updatedApplication = await applicationService.updateOne(req.params.id, req.body);
-        res.status(200).json(updatedApplication);
-    } catch(err) {
-        next(err);
-    }
-};
-
-const deleteApplication = async (req, res, newt) => {
-    try {
-        const deletedApplication = await applicationService.removeOne(req.params.id);
+        const deletedApplication = await applicationService.remove(req.body.appIdList);
         res.status(204).json(deletedApplication);
     } catch(err) {
         next(err);
     }
 };
 
-module.exports = { createApplications, getApplications, getApplicationsById, updateApplication, deleteApplication };
+module.exports = { createApplications, getApplications, getApplicationsById, deleteApplication };
