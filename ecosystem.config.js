@@ -10,9 +10,13 @@ module.exports = {
     watch: false,
     max_memory_restart: '1G',
     env_production: {
+      CLIEN_ID: '553045202887-evvpquhl0k2s8mvdp9v15mtk5n5jlh9j.apps.googleusercontent.com',
+      COMPANY_EMAIL: 'techmagic.screaming.tool@gmail.com',
+      EMAIL_PASSWORD: '1123581321Tm',
+      JWT_SECRET_KEY: 'KDS32hkswwGU66',
       PORT: 80,
       NODE_ENV: 'production',
-      MONGODB_URL: '' // replace with correct mongo url
+      MONGODB_URL: 'mongodb://recruiter:Hsvr74@ds135427.mlab.com:35427/recruter-app' // replace with correct mongo url
     }
   }],
 
