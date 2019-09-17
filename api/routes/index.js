@@ -7,6 +7,7 @@ const vacanciesRoutes = require('./vacancy.routes');
 const usersRoutes = require('./user.routes');
 const applicationRoutes = require('./application.routes');
 
+router.use('/hc', (req, res, next) => res.status(200).json({}));
 router.use('/users', usersRoutes);
 router.use('/questions', checkAuth, questionsRoutes);
 router.use('/vacancies', checkAuth, vacanciesRoutes);
