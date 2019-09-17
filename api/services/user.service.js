@@ -2,13 +2,14 @@ const { User } = require('../models');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIEN_ID);
 const nodeMailer = require('nodemailer');
-const vacancyService = require('./vacancy.service');
-const applicationService = require('./application.service');
 const jwt = require('jsonwebtoken');
+
 const errorHandler = require('../../utils/errorHandler');
 const err400 = errorHandler.serverError();
 const err401 = errorHandler.unauthorized('Auth failed');
 const err500 = errorHandler.serverError();
+
+const { inviteCandidateMail, inviteReviewerMail } = require('../CONSTANTS');
 
 const createUser = async data => {
     try {
@@ -25,6 +26,16 @@ const findUser = async data => {
         return user;
     } catch(err) {
         throw err400;
+    }
+};
+
+const findUsersByRole = async roles => {
+    try {
+        if (!Array.ifArray(roles)) throw err400;
+        const users = User.find({ role: { $in: roles } });
+        return users;
+    } catch(err) {
+        throw err;
     }
 };
 
@@ -52,7 +63,7 @@ const google_auth = async (google_token) => {
     }
 };
 
-const sendVerificationCode = async (email, code, vacancy) => {
+const sendMail = async (role ,email, code, vacancy = '') => {
     try {
         const transporter = nodeMailer.createTransport({
             host: 'smtp.gmail.com',
@@ -63,45 +74,8 @@ const sendVerificationCode = async (email, code, vacancy) => {
                 pass: process.env.EMAIL_PASSWORD
             }
         }); 
-        const mailOptions = {
-            from: 'TechMagic',
-            to: email,
-            subject: `You are invited on position ${vacancy}`,
-            html: `
-                <h1>Hello!</h1>
-                <h2 style="color: dodgerblue">Follow the link bellow to begin test:</h2>
-                <a href="http://recruiter-dev.surge.sh/${code}">http://recruiter-dev.surge.sh/${code}</a>
-                <br>
-                <br>
-                <a href="http://localhost:4200/${code}">http://localhost:4200/${code}</a>
-                <br>
-                <br>
-                <h3>
-                    Thanks!
-                </h3>
-                <h4>The screaming tool team</h4>
-            `
-        };
+        const mailOptions = role === 'reviewer' ? inviteReviewerMail(email, code) : inviteCandidateMail(email, code, vacancy);
         const sendEmail = await transporter.sendMail(mailOptions);
-    } catch(err) {
-        throw err;
-    }
-};
-
-const inviteCandidate = async (candidateData, vacancyId) => {
-    try {
-        let candidate = await findUser(candidateData);
-        if (!candidate) {
-            candidate = await createUser(candidateData);
-        }
-        const appData = {
-            candidate: candidate._id,
-            vacancy: vacancyId
-        };
-        const application = await applicationService.createOne(appData);
-        const vacancy = await vacancyService.getOne(vacancyId);
-        const code = candidate.generateVerificationCode();
-        const email = await sendVerificationCode(candidate.email, code, vacancy.title);
     } catch(err) {
         throw err;
     }
@@ -116,8 +90,8 @@ const activateUser = async (code) => {
         }
         throw err500;
     } catch(err) {
-        throw new Error(err);
+        throw err;
     }
 };
 
-module.exports = { google_auth, inviteCandidate, activateUser };
+module.exports = { createUser, findUser, google_auth, sendMail, activateUser, findUsersByRole };

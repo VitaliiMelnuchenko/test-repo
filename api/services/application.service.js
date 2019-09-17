@@ -55,6 +55,14 @@ const getOne = async (id) => {
     }
 };
 
+const updateOne = async data => {
+    try {
+
+    } catch(err) {
+        
+    }
+};
+
 const remove = async (appIdList) => {
     try {
         if (Array.isArray(appIdList)) throw badRequestErr;;
