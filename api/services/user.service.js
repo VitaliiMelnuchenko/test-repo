@@ -28,15 +28,6 @@ const findUser = async data => {
     }
 };
 
-const findUsersByRole = async roles => {
-    try {
-        const users = User.find({ role: { $in: roles } });
-        return users;
-    } catch(err) {
-        throw err400;
-    }
-};
-
 const google_auth = async (google_token) => {
     try {
         const ticket = await client.verifyIdToken({
