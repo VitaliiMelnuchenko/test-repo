@@ -27,5 +27,5 @@ app.use(function(req, res, next) {
 app.use('/', api);
 
 app.listen(process.env.PORT, process.env.ID, () => {
-   console.log('server is running');
+   console.log('server is running on port ' + process.env.PORT);
 });

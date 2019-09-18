@@ -26,7 +26,7 @@ const findUser = async data => {
     } catch(err) {
         throw err400;
     }
-}
+};
 
 const google_auth = async (google_token) => {
     try {
