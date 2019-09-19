@@ -1,14 +1,20 @@
 module.exports = {
     MIN_LENGTH: 3, 
+    MIN_ANSWER_TIME: 1,
     MAX_TITLE_LENGTH: 100, 
     MAX_DESC_LENGTH: 500, 
     MAX_TOPIC_LENGTH: 20,
     MAX_COMMENT_LENGTH: 500,
-    inviteReviewerMail: (email, code) => {
+    MONGOOSE_ID_LENGTH: 24,
+    ADMIN: 'admin',
+    RECRUITER: 'recruiter',
+    REVIEWER: 'reviewer',
+    CANDIDATE: 'candidate',
+    invitationMail: (email, code) => {
         return {
             from: 'TechMagic',
             to: email,
-            subject: `Reviewer invite`,
+            subject: 'Invitation to screening tool app',
             html: `
                 <h1>Hello!</h1>
                 <h2 style="color: dodgerblue">Follow the link bellow to activate your account:</h2>
@@ -25,7 +31,7 @@ module.exports = {
             `
         }
     },
-    inviteCandidateMail: (email, code, vacancy) => {
+    invitationCandidateMail: (email, code, vacancy) => {
         return {
             from: 'TechMagic',
             to: email,

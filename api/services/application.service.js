@@ -44,7 +44,7 @@ const getOne = async (id) => {
         const doc = await Application.findById(id).populate({
             path: 'vacancy',
             populate: { path: 'questions' }
-        }).populate('questions.question');;
+        }).populate('questions.question');
         if (doc) {
             return doc;
         } else {
@@ -55,17 +55,25 @@ const getOne = async (id) => {
     }
 };
 
-const updateOne = async data => {
+const updateOne = async (id, data) => {
     try {
-
+        const updatedApp = await Application.findByIdAndUpdate(id, data, { new: true }).populate({
+            path: 'vacancy',
+            populate: { path: 'questions' }
+        }).populate('questions.question');;
+        if (updatedApp) {
+            return updatedApp;
+        } else {
+            throw badRequestErr;
+        }
     } catch(err) {
-        
+        throw err;
     }
 };
 
 const remove = async (appIdList) => {
     try {
-        if (Array.isArray(appIdList)) throw badRequestErr;;
+        if (!Array.isArray(appIdList)) throw errorHandler.badRequest();
         const deletedApps = await Application.deleteMany({ _id : { $in: appIdList } });
         return deletedApps;
     } catch(err) {
@@ -73,4 +81,4 @@ const remove = async (appIdList) => {
     }
 };
 
-module.exports = { createOne, getMany, getOne, remove }
+module.exports = { createOne, getMany, getOne, updateOne, remove }

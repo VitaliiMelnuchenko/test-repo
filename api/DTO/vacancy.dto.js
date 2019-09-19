@@ -4,6 +4,7 @@ module.exports = (doc) => {
 	try {
 		const vacancy = {};
 		vacancy._id = (doc._id) ? doc._id : null;
+		vacancy.author = (doc.author) ? doc.author : null,
 		vacancy.title = (doc.title) ? doc.title : null;
 		vacancy.description = (doc.description) ? doc.description : null;
 		vacancy.status = (doc.status) ? doc.status : null;

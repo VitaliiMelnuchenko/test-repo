@@ -4,11 +4,13 @@ const applicationController = require('../controllers/application.controller');
 
 router.route('')
 .get(applicationController.getApplications)
-.post(applicationController.createApplications)
-.delete(applicationController.deleteApplication);;
+.delete(applicationController.deleteApplications);;
 
 router.route('/:id')
 .get(applicationController.getApplicationsById)
+.patch(applicationController.updateApplication);
+
+router.post('/:id/set-reviewer', applicationController.setReviewer);
 
 
 module.exports = router;

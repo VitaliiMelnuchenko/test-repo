@@ -5,7 +5,7 @@ const applicationSchema = new Schema({
     candidate: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        //required: true
+        required: true
     },
     vacancy: {
         type: Schema.Types.ObjectId,

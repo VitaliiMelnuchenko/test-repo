@@ -1,5 +1,5 @@
 const vacancyService = require('../services/vacancy.service');
-const vacancyDT = require('../DTO/vacancy.dto');
+const toVacancyDTO = require('../DTO/vacancy.dto');
 const validateVacancy = require('../validators/vacancy.validator');
 
 const createVacancy = async (req, res, next) => {
@@ -10,7 +10,7 @@ const createVacancy = async (req, res, next) => {
         };
         validateVacancy(data);
         const newVacancy = await vacancyService.createOne(data);
-        const result = vacancyDT(newVacancy);
+        const result = toVacancyDTO(newVacancy);
         res.status(201).json(result);
     } catch(err) {
         next(err);
@@ -20,7 +20,7 @@ const createVacancy = async (req, res, next) => {
 const getVacancy = async (req, res, next) => {
     try {
         const vacancies = await vacancyService.getMany();
-        const result = vacancies.map(vacancy => vacancyDT(vacancy));
+        const result = vacancies.map(toVacancyDTO);
         res.status(200).json(result);
     } catch(err) {
         next(err);
@@ -30,7 +30,7 @@ const getVacancy = async (req, res, next) => {
 const getVacancyById = async (req, res, next) => {
     try {
         const foundVacancy = await vacancyService.getOne(req.params.id);
-        const result = vacancyDT(foundVacancy);
+        const result = toVacancyDTO(foundVacancy);
         res.status(200).json(result);
     } catch(err) {
         next(err);
@@ -45,7 +45,7 @@ const updateVacancy = async (req, res, next) => {
         };
         validateVacancy(data);
         const updatedVacancy = await vacancyService.updateOne(req.params.id, data);
-        const result = vacancyDT(updatedVacancy);
+        const result = toVacancyDTO(updatedVacancy);
         res.status(200).json(result);
     } catch(err) {
         next(err);

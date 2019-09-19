@@ -1,6 +1,6 @@
 const questionService = require('../services/question.service');
 const validateQuestion = require('../validators/question.validator');
-const questionDT = require('../DTO/question.dto');
+const toQuestionDTO = require('../DTO/question.dto');
 
 const createQuestion = async (req, res, next) => {
     try {
@@ -10,7 +10,7 @@ const createQuestion = async (req, res, next) => {
         };
         validateQuestion(data);
         const newQuestion = await questionService.createOne(data);
-        const result = questionDT(newQuestion);
+        const result = toQuestionDTO(newQuestion);
         res.status(201).json(result);
     } catch(err) {
         next(err);
@@ -20,7 +20,7 @@ const createQuestion = async (req, res, next) => {
 const getQuestions = async (req, res, next) => {
     try {
         const questions = await questionService.getMany();
-        const result = questions.map(question => questionDT(question));
+        const result = questions.map(toQuestionDTO);
         res.status(200).json(result);
     } catch(err) {
         next(err);
@@ -30,7 +30,7 @@ const getQuestions = async (req, res, next) => {
 const getQuestionById = async (req, res, next) => {
     try {
         const foundQuestion = await questionService.getOne(req.params.id);
-        const result = questionDT(foundQuestion);
+        const result = toQuestionDTO(foundQuestion);
         res.status(200).json(result);
     } catch(err) {
         next(err);
@@ -45,7 +45,7 @@ const updateQuestion = async (req, res, next) => {
         };
         validateQuestion(data);
         const updatedQuestion = await questionService.updateOne(req.params.id, data);
-        const result = questionDT(updatedQuestion);
+        const result = toQuestionDTO(updatedQuestion);
         res.status(200).json(result);
     } catch(err) {
         next(err);

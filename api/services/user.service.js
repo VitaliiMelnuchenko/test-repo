@@ -3,13 +3,15 @@ const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIEN_ID);
 const nodeMailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
+const { RECRUITER, REVIEWER } = require('../CONSTANTS');
+
 
 const errorHandler = require('../../utils/errorHandler');
 const err400 = errorHandler.serverError();
 const err401 = errorHandler.unauthorized('Auth failed');
 const err500 = errorHandler.serverError();
 
-const { inviteCandidateMail, inviteReviewerMail } = require('../CONSTANTS');
+const { invitationCandidateMail, invitationMail } = require('../CONSTANTS');
 
 const createUser = async data => {
     try {
@@ -63,7 +65,7 @@ const google_auth = async (google_token) => {
     }
 };
 
-const sendMail = async (role ,email, code, vacancy = '') => {
+const sendInvite = async (role, email, code, vacancy = '') => {
     try {
         const transporter = nodeMailer.createTransport({
             host: 'smtp.gmail.com',
@@ -74,7 +76,7 @@ const sendMail = async (role ,email, code, vacancy = '') => {
                 pass: process.env.EMAIL_PASSWORD
             }
         }); 
-        const mailOptions = role === 'reviewer' ? inviteReviewerMail(email, code) : inviteCandidateMail(email, code, vacancy);
+        const mailOptions = (role === REVIEWER || role === RECRUITER) ? invitationMail(email, code) : invitationCandidateMail(email, code, vacancy);
         const sendEmail = await transporter.sendMail(mailOptions);
     } catch(err) {
         throw err;
@@ -94,4 +96,4 @@ const activateUser = async (code) => {
     }
 };
 
-module.exports = { createUser, findUser, google_auth, sendMail, activateUser, findUsersByRole };
+module.exports = { createUser, findUser, google_auth, sendInvite, activateUser, findUsersByRole };

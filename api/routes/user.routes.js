@@ -7,6 +7,8 @@ router.post('/auth', userController.signin);
 
 router.post('/invite', checkAuth, userController.inviteCandidate);
 
-router.post('/activate-user', checkAuth, userController.activateUser);
+router.post('/invite-reviewer', checkAuth, userController.inviteReviewer);
+
+router.post('/confirm', checkAuth, userController.activateUser);
 
 module.exports = router;

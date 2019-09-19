@@ -13,7 +13,6 @@ const QuestionSchema = new Schema({
     title: { type: String, min: MIN_LENGTH, max: MAX_TITLE_LENGTH, required: true },
     description: { type: String, min: MIN_LENGTH, max: MAX_DESC_LENGTH, required: true },
     type: { type: String, enum: ['code', 'text', 'video'], required: true },
-    link: { type: String, default: '' },
     maxLength: { type: Number, required: true },
     topics: { type: [String], required: true },
     level: { type: String, enum: ['junior', 'middle', 'senior'], required: true }
