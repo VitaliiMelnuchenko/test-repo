@@ -1,12 +1,11 @@
 const systemVarsSeervice = require('../services/system_vars.service');
-const validateTopic = require('../validators/topic.validator');
-const validateType = require('../validators/vacancy_type.validator');
+const validateSystemVar = require('../validators/system_vars.validator');
 
 const createTopic = async (req, res, next) => {
     try {
-        validateTopic(req.body.topic);
-        const topic = await systemVarsSeervice.createOne('topics', req.body.topic);
-        res.status(201).json(topic);
+        validateSystemVar(req.body);
+        //const topic = await systemVarsSeervice.createOne('topics', req.body.topic);
+        res.status(201).json(req.body);
     } catch(err) {
         next(err);
     }
@@ -31,8 +30,8 @@ const deleteTopic = async (req, res, next) => {
 
 const createType = async (req, res, next) => {
     try {
-        validateType(req.body.type);
-        const topic = await systemVarsSeervice.createOne(req.body.type);
+        validateSystemVar(req.body.type);
+        const topic = await systemVarsSeervice.createOne('vacancy_types', req.body.type);
         res.status(201).json(req.body);
     } catch(err) {
 
