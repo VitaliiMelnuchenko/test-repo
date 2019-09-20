@@ -4,10 +4,10 @@ const { MIN_LENGTH, MAX_TOPIC_LENGTH, MAX_VACANCY_TYPE_LENGTH } = require('../CO
 
 const SystemVarsSchema = new Schema({
     vacancy_types: [
-        { type: String, min: MIN_LENGTH, max: MAX_VACANCY_TYPE_LENGTH, index: true, unique: true }
+        { type: String, min: MIN_LENGTH, max: MAX_VACANCY_TYPE_LENGTH, index: true, lowercase: true }
     ],
     topics: [
-        { type: String, min: MIN_LENGTH, max: MAX_TOPIC_LENGTH, index: true, unique: true }
+        { type: String, min: MIN_LENGTH, max: MAX_TOPIC_LENGTH, index: true, lowercase: true }
     ]
 }, { versionKey: false });
 

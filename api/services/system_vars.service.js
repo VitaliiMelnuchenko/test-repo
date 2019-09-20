@@ -3,7 +3,8 @@ const errorHandler = require('../../utils/errorHandler');
 
 const createOne = async (key, value) => {
     try {
-        let systemVars = await SystemVars.findOne({});
+        const systemVars = await SystemVars.findOne({});
+        if (systemVars[key].includes(value)) throw errorHandler.badRequest();
         systemVars[key].push(value);
         await systemVars.save();
         return value;
@@ -25,7 +26,7 @@ const updateOne = async (key, curValue, newValue) => {
     try {
         const systemVars = await SystemVars.findOne({});
         const index = systemVars[key].indexOf(curValue);
-        if (index !== -1) {
+        if (index !== -1 && curValue !== newValue) {
             systemVars[key][index] = newValue;
             await systemVars.save();
             return newValue;
