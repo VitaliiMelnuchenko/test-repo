@@ -13,7 +13,7 @@ router.use('/users', usersRoutes);
 router.use('/questions', checkAuth, questionsRoutes);
 router.use('/vacancies', checkAuth, vacanciesRoutes);
 router.use('/applications', checkAuth, applicationRoutes);
-router.use('/system-vars', systemVarsRoutes)
+router.use('/system-vars', checkAuth, systemVarsRoutes);
 
 router.use((err, req, res, next) => {
     res.status(err.status || 500).json(err.message);

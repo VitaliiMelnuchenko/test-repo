@@ -3,15 +3,15 @@ const router = express.Router();
 const systemVarsController = require('../controllers/system_vars.controller');
 
 router.route('/topics')
-.get(systemVarsController.getTopics)
-.post(systemVarsController.createTopic)
-.put(systemVarsController.updateTopic)
-.delete(systemVarsController.updateTopic);
+.get(systemVarsController.getVars)
+.post(systemVarsController.createVar)
+.put(systemVarsController.updateVar)
+.delete(systemVarsController.deleteVar);
 
-router.route('/vacancy-types')
-.get(systemVarsController.getTypes)
-.post(systemVarsController.createType)
-.put(systemVarsController.updateType)
-.delete(systemVarsController.deleteType);
+router.route('/vacancy_types')
+.get(systemVarsController.getVars)
+.post(systemVarsController.createVar)
+.put(systemVarsController.updateVar)
+.delete(systemVarsController.deleteVar);
 
 module.exports = router;

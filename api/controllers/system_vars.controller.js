@@ -1,78 +1,61 @@
 const systemVarsSeervice = require('../services/system_vars.service');
 const validateSystemVar = require('../validators/system_vars.validator');
-const validateSystemVarUpdate = require('../validators/update_system_var.validator');
+const validateSystemVarUpdate = require('../validators/update_system_var.validator'); 
 
-const createTopic = async (req, res, next) => {
+const getVarNameFormUrl = (url) => {
+    return url.substr(1);
+}
+
+const createVar = async (req, res, next) => {
     try {
         validateSystemVar(req.body);
-        const data = req.body.topic.toLowerCase();
-        const topic = await systemVarsSeervice.createOne('topics', data);
-        res.status(201).json({ topic: topic });
+        const systenVarName = getVarNameFormUrl(req.url);
+        const data = req.body.name.toLowerCase();
+        const systemVar = await systemVarsSeervice.createOne(systenVarName, data);
+        res.status(201).json({ name: systemVar });
     } catch(err) {
         next(err);
     }
 };
 
-const getTopics = async (req, res, next) => {
+const getVars = async (req, res, next) => {
     try {
-        const topics = await systemVarsSeervice.getMany('topics');
-        res.status(201).json({ topics: topics });
+        const systenVarName = getVarNameFormUrl(req.url);
+        const systemVars = await systemVarsSeervice.getMany(systenVarName);
+        res.status(201).json({ vars: systemVars });
     } catch(err) {
         next(err);
     }
 };
 
-const updateTopic = async (req, res, next) => {
+const updateVar = async (req, res, next) => {
     try {
         validateSystemVarUpdate(req.body);
+        const systenVarName = getVarNameFormUrl(req.url);
         const curVal = req.body.currentValue.toLowerCase();
         const newVal = req.body.newValue.toLowerCase();
-        const updatedTopic = await systemVarsSeervice.updateOne('topics' ,curVal, newVal);
-        res.status(200).json({ topic: updatedTopic });
+        const updatedVar = await systemVarsSeervice.updateOne(systenVarName ,curVal, newVal);
+        res.status(200).json({ name: updatedVar });
     } catch(err) {
         next(err);
     }
 }; 
 
-const deleteTopic = async (req, res, next) => {
+const deleteVar = async (req, res, next) => {
     try {
-        const topic = req.body.topic.toLowerCase();
-        const deletedTopic = await systemVarsSeervice.deleteOne('topics', topic);
-        res.status(204).josn({});
+        validateSystemVar(req.body);
+        const systenVarName = getVarNameFormUrl(req.url);
+        const systemVar = req.body.name.toLowerCase();
+        const deletedVar = await systemVarsSeervice.deleteOne(systenVarName, systemVar);
+        res.status(204).json({});
     } catch(err) {
         next(err);
     }
 };
 
-const createType = async (req, res, next) => {
-    try {
-        validateSystemVar(req.body.type);
-        const topic = await systemVarsSeervice.createOne('vacancy_types', req.body.type);
-        res.status(201).json(req.body);
-    } catch(err) {
-
-    }
-};
-
-const getTypes = async (rea, res, next) => {
-
-};
-
-const updateType = async (req, res, next) => {
-
-};
-
-const deleteType = async (req, res, next) => {
-
-} ;
-
 module.exports = {
-    createTopic,
-    getTopics,
-    updateTopic,
-    deleteTopic,
-    createType,
-    getTypes,
-    updateType,
-    deleteType
+    createVar,
+    getVars,
+    updateVar,
+    deleteVar
 };
