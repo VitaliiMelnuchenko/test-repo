@@ -6,6 +6,7 @@ module.exports = {
     MAX_SYSTEM_VAR_LENGTH: 20,
     MAX_COMMENT_LENGTH: 500,
     MONGOOSE_ID_LENGTH: 24,
+    MAX_NUM_OF_TOPICS: 5,
     ADMIN: 'admin',
     RECRUITER: 'recruiter',
     REVIEWER: 'reviewer',

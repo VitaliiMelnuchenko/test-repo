@@ -27,9 +27,10 @@ const updateOne = async (key, curValue, newValue) => {
         const systemVars = await SystemVars.findOne({});
         const index = systemVars[key].indexOf(curValue);
         if (index !== -1 && curValue !== newValue) {
-            systemVars[key][index] = newValue;
+            const result = systemVars[key][index] = newValue;
+            systemVars.markModified(key);
             await systemVars.save();
-            return newValue;
+            return result;
         } else {
             throw errorHandler.badRequest();
         }
