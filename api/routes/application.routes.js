@@ -12,7 +12,6 @@ router.route('/:id')
 .get(requireRoles(RECRUITER, ADMIN, CANDIDATE, REVIEWER), applicationController.getApplicationsById)
 .patch(requireRoles(ADMIN), applicationController.updateApplication);
 
-router.post('/:id/set-reviewer', applicationController.setReviewer);
-
+router.post('/:id/set-reviewer', requireRoles(ADMIN, RECRUITER), applicationController.setReviewer);
 
 module.exports = router;

@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const systemVarsController = require('../controllers/system_vars.controller');
+const requireRoles = require('../middlewares/check-role');
+const { ADMIN } = require('../CONSTANTS');
+
+router.use(requireRoles(ADMIN));
 
 router.route('/topics')
 .get(systemVarsController.getVars)
