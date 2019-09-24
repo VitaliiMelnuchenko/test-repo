@@ -5,10 +5,17 @@ const checkAuth = require('../middlewares/check-auth');
 
 router.post('/auth', userController.signin);
 
-router.post('/invite', checkAuth, userController.inviteCandidate);
+router.use(checkAuth);
+router.post('/invite', userController.inviteCandidate);
 
-router.post('/invite-reviewer', checkAuth, userController.inviteReviewer);
+router.post('/invite-reviewer', userController.inviteReviewer);
 
-router.post('/confirm', checkAuth, userController.activateUser);
+router.post('/confirm', userController.activateUser);
+
+router.post('/filter', userController.findByRole);
+
+router.route('/:id')
+.put(userController.updateUser)
+.delete(userController.deleteUser);
 
 module.exports = router;

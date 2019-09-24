@@ -11,6 +11,8 @@ module.exports = {
     RECRUITER: 'recruiter',
     REVIEWER: 'reviewer',
     CANDIDATE: 'candidate',
+    MAX_FIRSTNAME_LENGTH: 30,
+    MAX_LASTNAME_LENGTH: 40,
     invitationMail: (email, code) => {
         return {
             from: 'TechMagic',

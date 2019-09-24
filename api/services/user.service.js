@@ -31,6 +31,32 @@ const findUser = async data => {
     }
 };
 
+const updateUser = async (id, data) => {
+    try {
+        const updateduser = await User.findByIdAndUpdate(id, data, { new: true });
+        if (updateUser) {
+            return updateduser;
+        } else {
+            throw err400;
+        }
+    } catch(err) {
+        throw err;
+    }
+}
+
+const deleteUser = async id => {
+    try {
+        const deleteduser = await User.findByIdAndDelete(id);
+        if (deleteduser) {
+            return deleteduser;
+        } else {
+            throw err400;
+        }
+    } catch(err) {
+        throw err;
+    }
+};
+
 const findUsersByRole = async roles => {
     try {
         if (!Array.ifArray(roles)) throw err400;
@@ -96,4 +122,4 @@ const activateUser = async (code) => {
     }
 };
 
-module.exports = { createUser, findUser, google_auth, sendInvite, activateUser, findUsersByRole };
+module.exports = { createUser, findUser, google_auth, sendInvite, activateUser, findUsersByRole, updateUser, deleteUser };
